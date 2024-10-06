@@ -44,9 +44,11 @@ def create_coins(board: List[List[int]]) -> List[tuple]:
 
     return coins
 
+
 def create_special_coins(board):
     special_coins = []
 
-    # TODO: Ajouter des coins aux positions spéciales, en utilisant la variable 'special_coins_pos'.
-    
+    for pos in special_coins_pos:
+        special_coins.append(pos)
+
     return special_coins
