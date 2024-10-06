@@ -1,4 +1,3 @@
-import math
 from typing import List, Tuple
 import pygame
 from config import *
