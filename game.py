@@ -1,18 +1,13 @@
 from typing import Tuple
-
-import pygame
-import sys
-from config import EDIBLE_GHOST_TIMER, RESET_POS1, RESET_POS3, RESET_POS4
+import threading
 from ghost import *
 from pacman import PacMan
-from helper import create_board, create_special_coins
-from helper import create_coins
+from helper import create_board, create_coins, create_special_coins
 from end import End
-import threading
 
 
 class Game:
-    def __init__(self, screen):
+    def __init__(self, screen: pygame.Surface) -> None:
         # Initialiser les paramètres du jeu
         self.screen = screen
         self.board = create_board()
@@ -80,11 +75,11 @@ class Game:
         self.game_over = False
         self.game_won = False
 
-    def start(self):
+    def start(self) -> None:
         # Initialiser les paramètres du jeu
         self.board = create_board()
 
-    def render(self):
+    def render(self) -> None:
         for row in range(len(self.board)):
             for col in range(len(self.board[row])):
                 if self.board[row][col] == 1:
@@ -207,7 +202,7 @@ class Game:
             return True
         return False
 
-    def update(self):
+    def update(self) -> None:
         for ghost in self.ghosts:
             ghost.draw()
             ghost.move()
@@ -238,7 +233,7 @@ class Game:
             self.score += 20
             self.activate_eat_mode()
 
-    def activate_eat_mode(self):
+    def activate_eat_mode(self) -> None:
         timer = threading.Timer(EDIBLE_GHOST_TIMER, self.deactivate_eat_mode)
         timer.start()
 
@@ -253,7 +248,7 @@ class Game:
         self.orange_ghost_instance.draw()
         self.pink_ghost_instance.draw()
 
-    def deactivate_eat_mode(self):
+    def deactivate_eat_mode(self) -> None:
         # Code to deactivate eat mode
         self.red_ghost_instance.edible = False
         self.blue_ghost_instance.edible = False
@@ -265,7 +260,7 @@ class Game:
         self.orange_ghost_instance.draw()
         self.pink_ghost_instance.draw()
 
-    def check_collision_between_ghosts_and_pacman(self):
+    def check_collision_between_ghosts_and_pacman(self) -> None:
         for ghost in self.ghosts:
             if ghost.rect.colliderect(self.pacman.rect):
                 if ghost.edible:
