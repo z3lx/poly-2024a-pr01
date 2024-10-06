@@ -1,3 +1,5 @@
+from typing import Tuple
+
 import pygame
 import sys
 from config import EDIBLE_GHOST_TIMER, RESET_POS1, RESET_POS3, RESET_POS4
@@ -197,14 +199,13 @@ class Game:
             if self.check_collision((0, 1)):
                 self.pacman.set_direction((0, 1))
 
-    def check_collision(self, direction):
-        return True
-        # TODO: Extraire les coordonnées de déplacement de la direction (dx, dy)
-
-        # TODO: Calculer la nouvelle position de Pac-Man après le déplacement (new_x, new_y) avec la formule new_x = self.pacman.x + dx
-
-        # TODO: Vérifier si la nouvelle position est un chemin valide ou un mur
-        # Utiliser la grille (`self.board`) pour déterminer si la case est un chemin (0) ou un mur (1). return True si c'est un chemin, False si c'est un mur.
+    def check_collision(self, direction: Tuple[int, int]) -> bool:
+        dx, dy = direction
+        new_x = self.pacman.x + dx
+        new_y = self.pacman.y + dy
+        if self.board[new_y][new_x] == 0:
+            return True
+        return False
 
     def update(self):
         for ghost in self.ghosts:
