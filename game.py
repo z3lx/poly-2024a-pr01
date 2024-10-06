@@ -217,12 +217,13 @@ class Game:
         self.check_score()
         self.check_special_coins()
 
-    def check_score(self):
-        # TODO: Vérifier si la position actuelle de Pac-Man (en coordonnées de grille) correspond à une position de pièce en utilisant (self.pacman.x, self.pacman.y)
-            # TODO: Si Pac-Man est sur une pièce, la retirer de la liste des pièces restantes à collecter
+    def check_score(self) -> None:
+        # Check for collision with coins
+        if (self.pacman.x, self.pacman.y) in self.coins:
+            self.coins.remove((self.pacman.x, self.pacman.y))
+            self.score += 10
 
-            # TODO: Ajouter des points au score du joueur pour la pièce collectée (par exemple, 10 points)
-
+        # End the game if all coins are collected
         if len(self.coins) == 0:
             self.end.render(True)
             self.game_won = True
