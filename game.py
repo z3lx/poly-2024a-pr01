@@ -219,7 +219,8 @@ class Game:
 
     def check_score(self) -> None:
         # Check for collision with coins
-        if (self.pacman.x, self.pacman.y) in self.coins:
+        pos = (self.pacman.x, self.pacman.y)
+        if pos in self.coins:
             self.coins.remove((self.pacman.x, self.pacman.y))
             self.score += 10
 
@@ -229,15 +230,13 @@ class Game:
             self.game_won = True
             self.game_over = True
 
-    def check_special_coins(self):
-        pass
-        # TODO: Vérifier si la position actuelle de Pac-Man (en coordonnées de grille) correspond à une position de pièce spéciale
-
-            # TODO: Si Pac-Man est sur une pièce spéciale, retirer cette pièce spéciale de la liste
-
-            # TODO: Ajouter des points au score du joueur pour la pièce spéciale collectée
-
-            # TODO: Activer le mode "manger" en appelant la méthode appropriée pour activer le mode "manger" des fantômes avec self.activate_eat_mode()
+    def check_special_coins(self) -> None:
+        # Check for collision with special coins
+        pos = (self.pacman.x, self.pacman.y)
+        if pos in self.special_coins:
+            self.special_coins.remove(pos)
+            self.score += 20
+            self.activate_eat_mode()
 
     def activate_eat_mode(self):
         timer = threading.Timer(EDIBLE_GHOST_TIMER, self.deactivate_eat_mode)
